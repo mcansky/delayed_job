@@ -249,10 +249,10 @@ module Delayed
     # Note: This does not ping the DB to get the time, so all your clients
     # must have syncronized clocks.
     def self.db_time_now
-      if Time.now.zone == "UTC"
-        ActiveRecord::Base.default_timezone == :utc
+      if ActiveRecord::Base.default_timezone == :utc
+        Time.now.zone
       else
-        ActiveRecord::Base.default_timezone == :local
+        Time.now.utc
       end
     end
 
